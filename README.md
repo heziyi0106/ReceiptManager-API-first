@@ -253,9 +253,9 @@ jobs:
   ```
 - 啟 server（範例命令）：
   ```bash
-  uvicorn main:app --reload --port 4010
+  uvicorn main:app --reload --port 8000
   ```
-- 如果你希望本地後端在 4010 接手前端呼叫，先停止 Prism mock（或改前端 .env 指到後端）。
+- 如果你希望本地後端在 8000 接手前端呼叫，先停止 Prism mock（或改前端 .env 指到後端）。
 
 ---
 
