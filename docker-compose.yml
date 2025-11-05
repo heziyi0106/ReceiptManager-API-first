@@ -2,26 +2,20 @@ version: "3.8"
 services:
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: ./backend         # 指向 backend 資料夾（不是 .）
+      dockerfile: Dockerfile     # 指向 backend 目錄的 Dockerfile
     container_name: receipt_manager_backend
     ports:
       - "8000:8000"
     environment:
       - ENV=development
-    volumes:
-      - ./backend:/app:cached
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: ./frontend        # 指向 frontend 資料夾（不是 .）
+      dockerfile: Dockerfile     # 指向 frontend 目錄的 Dockerfile
     container_name: receipt_manager_frontend
     ports:
       - "5173:5173"
     environment:
       - VITE_API_URL=http://localhost:8000
-    volumes:
-      - ./frontend:/app:cached
-    depends_on:
-      - backend
