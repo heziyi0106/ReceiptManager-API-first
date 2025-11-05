@@ -32,10 +32,47 @@
 ### 本地 Docker 快速啟動
 
 1. 準備 requirements.txt（確保 FastAPI 已安裝；可空檔，未來方便 CI/CD 擴充）
-2. 在 repo 根目錄執行：
-    ```bash
-    docker-compose up --build
-    ```
+2. 直接用發佈 Docker Image 各自啟動（無需 clone 專案）
+
+如果你只需快速體驗前後端，不用自己 build image，可用 Docker Hub 已推送好的 image 直接啟動：
+
+#### 啟動後端（FastAPI）
+
+```bash
+docker run -d \
+  --name receipt_manager_backend \
+  -p 8000:8000 \
+  -e ENV=development \
+  happy0106/receipt-manager-backend:latest
+```
+
+#### 啟動前端（Vite）
+
+```bash
+docker run -d \
+  --name receipt_manager_frontend \
+  -p 5173:5173 \
+  -e VITE_API_URL=http://localhost:8000 \
+  happy0106/receipt-manager-frontend:latest
+```
+
+- 啟動後，在瀏覽器開啟 [http://localhost:5173](http://localhost:5173)
+- 前端自動串連本地 API [http://localhost:8000](http://localhost:8000)
+
+#### 容器管理指令
+
+```bash
+docker ps                           # 查看在執行的容器
+docker logs receipt_manager_backend # 查看後端 log
+docker logs receipt_manager_frontend # 查看前端 log
+docker stop receipt_manager_backend receipt_manager_frontend # 停止
+docker rm receipt_manager_backend receipt_manager_frontend   # 刪除
+```
+
+> 若有 port 被佔用、需更改請自行調整指令中的 -p 參數。
+
+---
+
 3. 預設 web 服務會在 [http://localhost:8000](http://localhost:8000) 運作，對應 FastAPI 後端
 
 #### 重要配置檔案
