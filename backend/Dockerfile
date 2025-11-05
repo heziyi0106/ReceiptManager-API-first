@@ -30,4 +30,4 @@ EXPOSE 8000
 
 # Default command uses uvicorn (you can override in docker-compose)
 # If you use a different entrypoint, override in compose or in docker run
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
