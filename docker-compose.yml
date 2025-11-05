@@ -1,20 +1,27 @@
 version: "3.8"
-
 services:
-  web:
+  backend:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
-    image: receipt-manager-web:local
-    container_name: receipt_manager_web
+    container_name: receipt_manager_backend
     ports:
       - "8000:8000"
     environment:
-      # Add env vars your app expects (example)
       - ENV=development
     volumes:
-      - ./:/app:cached
-    # If your FastAPI app uses auto-reload in dev:
-    # command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-    # For production-like run, use the default CMD in Dockerfile
-    depends_on: []
+      - ./backend:/app:cached
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: receipt_manager_frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app:cached
+    depends_on:
+      - backend
