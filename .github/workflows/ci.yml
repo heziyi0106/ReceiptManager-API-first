@@ -111,6 +111,8 @@ jobs:
           push: true
           platforms: linux/amd64
           no-cache: true
+          build-args: |
+            VITE_API_URL=http://localhost:8000
           tags: |
             ghcr.io/${{ github.repository_owner }}/receipt-manager-frontend:${{ github.sha }}
             ghcr.io/${{ github.repository_owner }}/receipt-manager-frontend:latest
